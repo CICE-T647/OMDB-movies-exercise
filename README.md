@@ -89,7 +89,11 @@ Queda confirmado: los de OMDB definitivamente son unos p**** cutres y ni siquier
 
 Para solucionar el "too many results", tendremos que requerirle a nuestro front que las queries que nos envíen tengan al menos 3 letras, si no, devolveremos un error. 
 
-## Iteración 4: Búsqueda por id.
+## Iteración 4: Busqueda por año. 
+
+Crea un nuevo endpoint que permita filtrar películas por año. 
+
+## Iteración 5: Búsqueda por id.
 
 OK! Si has llegado hasta aquí, quiere decir que has conseguida búsqueda que permiten traer (no) todas las películas y (no) todas las series y, además, paginar (solo a veces) nuestras búsquedas, pero los objetos que hasta ahora nos está devolviendo la cutre API de OMDB solo tienen 5 atributos. 
 
@@ -101,6 +105,7 @@ Mucho mejor ¿Eh?
 
 Con esto ya tendríamos información suficiente para implementar una pequeña app. ¿Te atreves?
 
+#### BONUS: Añade validaciones a los distintos endpoints.
 
 
 __HAPPY CODDING!!__
