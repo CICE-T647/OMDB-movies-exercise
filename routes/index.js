@@ -22,18 +22,18 @@ router.get("/searchbytitle", async (req, res) => {
     }
 });
 
-router.get("/:searchbytype/:searchbytitle", async (req, res) => {
+router.get("/:type/:title", async (req, res) => {
     try {
         const { type, title } = req.params;
         console.log("title", title);
         console.log("type", type);
-        // if (type === undefined || type.length < 1) {
-        //     res.status(200).json({ message: "Bad Parameters: Type not found" });
-        // }
+        if (type === undefined || type.length < 1) {
+            res.status(200).json({ message: "Bad Parameters: Type not found" });
+        }
         const response = await axios.get(
             `http://www.omdbapi.com/?apikey=${myKey}&type=${type}&s=${title}`
         );
-        console.log(response);
+        console.log("response", response.data.search);
 
         res.status(200).json({ message: "entra" });
     } catch (error) {
