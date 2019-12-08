@@ -6,7 +6,7 @@ const URL = process.env.PLACEHOLDER_URL;
 const myKey = process.env.APIKEY;
 module.exports = router;
 
-router.get("/search", async (req, res) => {
+router.get("/searchbytitle", async (req, res) => {
     try {
         const { search } = req.query;
 
@@ -22,13 +22,19 @@ router.get("/search", async (req, res) => {
     }
 });
 
-router.get("/type", async (req, res) => {
+router.get("/:searchbytype/:searchbytitle", async (req, res) => {
     try {
-        const { type } = req.query;
-        console.log(type);
-        // const response = await axios.get(
-        //     `http://www.omdbapi.com/?apikey=${myKey}&s=${search}`
-        // );
+        const { type, title } = req.params;
+        console.log("title", title);
+        console.log("type", type);
+        // if (type === undefined || type.length < 1) {
+        //     res.status(200).json({ message: "Bad Parameters: Type not found" });
+        // }
+        const response = await axios.get(
+            `http://www.omdbapi.com/?apikey=${myKey}&type=${type}&s=${title}`
+        );
+        console.log(response);
+
         res.status(200).json({ message: "entra" });
     } catch (error) {
         console.log("error", error);
