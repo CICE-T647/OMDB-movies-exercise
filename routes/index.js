@@ -33,9 +33,9 @@ router.get("/:type/:title", async (req, res) => {
         const response = await axios.get(
             `http://www.omdbapi.com/?apikey=${myKey}&type=${type}&s=${title}`
         );
-        console.log("response", response.data.search);
+        console.log("response", response.data.Search);
 
-        res.status(200).json({ message: "entra" });
+        res.status(200).json(response.data.Search);
     } catch (error) {
         console.log("error", error);
         res.status(400).json({ message: "Hay un problema" });
