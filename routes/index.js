@@ -69,13 +69,13 @@ router.get("/searchbyid/:id", async (req, res) => {
     try {
         const { id } = req.params;
         console.log("id", id);
-        if (id.length < 3) {
-            res.status(200).json({ message: "Bad Parameters: Type not found" });
-        }
-        const response = await axios.get(`${URL}?apikey=${myKey}&i=${id}`);
-        console.log("response", response.data.Search);
+        if (id && id.length > 3) {
+            const response = await axios.get(`${URL}?apikey=${myKey}&i=${id}`);
 
-        res.status(200).json(response.data.Search);
+            res.status(200).json(response.data.Search);
+        } else {
+            res.status(404).json({ message: "Bad Parameters: Type not found" });
+        }
     } catch (error) {
         console.log("error", error);
         res.status(400).json({ message: "Hay un problema" });
