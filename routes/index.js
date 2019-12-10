@@ -27,15 +27,16 @@ router.get("/searchbytitle", async (req, res) => {
 router.get("/:type/:title", async (req, res) => {
     try {
         const { type, title } = req.params;
-        console.log("title", title);
-        console.log("type", type);
-        if (type === undefined || type.length < 3 || title.length < 3) {
+        const types = ["episode", "series", "movies"];
+
+        if (type.includes(type) && title.length > 2) {
+            const response = await axios.get(
+                `${URL}?apikey=${myKey}&type=${type}&s=${title}`
+            );
+            console.log("response", response.data.Search);
+        } else {
             res.status(200).json({ message: "Bad Parameters: Type not found" });
         }
-        const response = await axios.get(
-            `${URL}?apikey=${myKey}&type=${type}&s=${title}`
-        );
-        console.log("response", response.data.Search);
 
         res.status(200).json(response.data.Search);
     } catch (error) {
@@ -49,15 +50,15 @@ router.get("/searchbyyear/:year/:title", async (req, res) => {
         const { year, title } = req.params;
         console.log("year", year);
         console.log("title", title);
-        if (year === undefined || year.length < 3 || title.length < 3) {
-            res.status(200).json({ message: "Bad Parameters: Type not found" });
-        }
-        const response = await axios.get(
-            `${URL}?apikey=${myKey}&y=${year}&s=${title}`
-        );
-        console.log("response-length", response.data.Search.length);
+        if (year.length === 4 || title.length > 2) {
+            const response = await axios.get(
+                `${URL}?apikey=${myKey}&y=${year}&s=${title}`
+            );
 
-        res.status(200).json(response.data.Search);
+            res.status(200).json(response.data.Search);
+        } else {
+            res.status(404).json({ message: "Bad Parameters: Type not found" });
+        }
     } catch (error) {
         console.log("error", error);
         res.status(400).json({ message: "Hay un problema" });
